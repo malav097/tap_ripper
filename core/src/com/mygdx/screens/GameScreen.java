@@ -2,9 +2,11 @@ package com.mygdx.screens;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Gdx;
+import com.mygdx.helpers.InputHandler;
 import com.mygdx.screens.GameScreen;
 import com.mygdx.gameworld.GameWorld;
 import com.mygdx.gameworld.GameRender;
+
 
 
 public class GameScreen implements Screen {
@@ -26,7 +28,7 @@ public class GameScreen implements Screen {
         world = new GameWorld(midPointY);
         renderer = new GameRender(world);
 
-
+        Gdx.input.setInputProcessor(new InputHandler(world.getsurfer()));
     }
 
     @Override

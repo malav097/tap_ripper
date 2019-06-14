@@ -24,15 +24,15 @@ public class Surfer {
         this.height = height;
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
-        acceleration = new Vector2(-460, 0);
+        acceleration = new Vector2(-100, 0);
     }
 
     public void update(float delta) {
 
         velocity.add(acceleration.cpy().scl(delta));
 
-        if (velocity.x < -200) {
-            velocity.x = -200;
+        if (velocity.x < -100) {
+            velocity.x = -100;
         }
 
         position.add(velocity.cpy().scl(delta));
@@ -40,7 +40,7 @@ public class Surfer {
     }
 
     public void onClick() {
-        velocity.x = 140;
+        velocity.x = 60;
     }
 
     public float getX() {
