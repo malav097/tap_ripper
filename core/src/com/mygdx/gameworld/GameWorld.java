@@ -13,7 +13,7 @@ public class GameWorld {
     }
 
     public void update(float delta) {
-        Gdx.app.log("GameWorld", "update");
+        //Gdx.app.log("GameWorld", "update");
         surfer.update(delta);
 
 

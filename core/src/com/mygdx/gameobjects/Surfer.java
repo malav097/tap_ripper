@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Surfer {
 
-    private Rectangle rect = new Rectangle(70, 100, 17, 12);
+    //private Rectangle rect = new Rectangle(70, 100, 17, 12);
 
     private Vector2 position;
     private Vector2 velocity;
@@ -39,9 +39,22 @@ public class Surfer {
 
     }
 
-    public void onClick() {
+    public void onClick(int vel) {
         velocity.x = 60;
+        velocity.y = vel;
+
+
     }
+
+    public void onClickUp() {
+        velocity.y = 10;
+
+    }
+
+    public void onClickDown() {
+        velocity.y = -10;
+    }
+
 
     public float getX() {
         return position.x;

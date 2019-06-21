@@ -1,22 +1,41 @@
 package com.mygdx.helpers;
-
+import com.mygdx.screens.GameScreen;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.gameobjects.Surfer;
 
 public class InputHandler implements InputProcessor {
 
     private Surfer mysurfer;
+    private int midpoint;
+    private int vel;
+
 
     // Ask for a reference to the surfer when InputHandler is created.
-    public InputHandler(Surfer surfer) {
-        // mysurfer now represents the gameWorld's bird.
+    public InputHandler(Surfer surfer,int midPointY) {
+        // mysurfer now represents the gameWorld's surfer.
         mysurfer = surfer;
+        midpoint = midPointY;
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        mysurfer.onClick();
+
+
+
+        if (screenY > midpoint) {
+            vel = -15;
+
+        } else {
+            vel = 15;
+        }
+
+
+
+        mysurfer.onClick(vel);
+        Gdx.app.log("touch","X = " + screenX + " Y = " + screenY);
         return true; // Return true to say we handled the touch.
+
     }
 
     @Override
