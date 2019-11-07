@@ -13,6 +13,8 @@ public class GameScreen implements Screen {
 
     private GameWorld world;
     private GameRender renderer;
+    private float gamesurfery;
+    private boolean col;
 
     public GameScreen() {
         Gdx.app.log("GameScreen", "Attached");
@@ -22,19 +24,44 @@ public class GameScreen implements Screen {
         float gameWidth = 136;
         float gameHeight = screenHeight / (screenWidth / gameWidth);
 
-        int midPointY = (int) (gameHeight / 2);
+
+        float screenmidy = (float) (screenHeight / 2);
+
+        float midPointY = (int) (gameHeight / 2);
 
 
-        world = new GameWorld(midPointY);
+        world = new GameWorld(midPointY, gameHeight, gameWidth);
         renderer = new GameRender(world);
 
-        Gdx.input.setInputProcessor(new InputHandler(world.getsurfer(), midPointY));
+
+        //Gdx.input.setInputProcessor(new InputHandler(world.getsurfer()));
+        Gdx.app.log("GameScreen", "Midpoint " + midPointY);
+        Gdx.app.log("GameScreen", "Height " + screenHeight);
+        Gdx.app.log("GameScreen", "gameheight "  + gameHeight);
     }
 
     @Override
     public void render(float delta) {
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+        float gameWidth = 136;
+        float gameHeight = screenHeight / (screenWidth / gameWidth);
+
+
         world.update(delta);
         renderer.render();
+
+        gamesurfery = world.getsurfer().getY() * screenHeight / gameHeight;
+
+        gamesurfery = gamesurfery + 3;
+
+        col = world.getColumn().collision(world.getsurfer().getBoundingCircle());
+
+        Gdx.input.setInputProcessor(new InputHandler(world, gamesurfery));
+
+        Gdx.app.log("touch","surfer = " + col);
+
+
     }
 
     @Override

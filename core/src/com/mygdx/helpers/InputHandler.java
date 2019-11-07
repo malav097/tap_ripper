@@ -3,38 +3,55 @@ import com.mygdx.screens.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.gameobjects.Surfer;
+import com.mygdx.gameworld.GameWorld;
 
 public class InputHandler implements InputProcessor {
 
     private Surfer mysurfer;
-    private int midpoint;
     private int vel;
+    private GameWorld myWorld;
+    private float surfery;
+    private float surferypoint;
 
 
     // Ask for a reference to the surfer when InputHandler is created.
-    public InputHandler(Surfer surfer,int midPointY) {
+    public InputHandler(GameWorld myWorld, float mid) {
+
+        this.myWorld = myWorld;
         // mysurfer now represents the gameWorld's surfer.
-        mysurfer = surfer;
-        midpoint = midPointY;
+        mysurfer = myWorld.getsurfer();
+        surferypoint = mid;
+
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-
-
-        if (screenY > midpoint) {
-            vel = -15;
-
-        } else {
-            vel = 15;
+        if (myWorld.isReady()) {
+            myWorld.start();
         }
 
+        if (screenY > surferypoint) {
+            vel = 15;
+
+        } else {
+            vel = -15;
+        }
 
 
         mysurfer.onClick(vel);
         Gdx.app.log("touch","X = " + screenX + " Y = " + screenY);
+        Gdx.app.log("midpoint","surferypoint = " + surferypoint );
+        Gdx.app.log("vel","VEL = " + vel);
+
+
+        if (myWorld.isGameOver()) {
+            // Reset all variables, go to GameState.READ
+            myWorld.restart();
+        }
+
         return true; // Return true to say we handled the touch.
+
 
     }
 
